@@ -10,12 +10,19 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
 - ✅ **Payment Distribution** - 70% to influencer, 30% platform fee
 - ✅ **Brand Portal** - Create campaigns, upload coupons, monitor performance
 - ✅ **Influencer Dashboard** - View connected campaigns, assigned coupons, earnings
+- ✅ **Mobile App** - React Native/Expo mobile app with swipe interface
+- ✅ **Push Notifications** - Real-time notifications for new campaigns, payments, etc.
+- ✅ **Analytics Dashboard** - Campaign performance, earnings tracking, top influencers
+- ✅ **Payment Integrations** - Stripe & PayPal for payouts to influencers
+- ✅ **Social Login** - Google, Facebook, Apple OAuth authentication
 
 ## Tech Stack
 
 - **Frontend**: React 18, Vite, Tailwind CSS, Framer Motion, Zustand
+- **Mobile**: React Native, Expo, Expo Router
 - **Backend**: Node.js, Express, Prisma (SQLite)
-- **Auth**: JWT tokens
+- **Auth**: JWT tokens, OAuth (Google, Facebook, Apple)
+- **Payments**: Stripe Connect, PayPal Payouts
 
 ## Getting Started
 
@@ -38,8 +45,12 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
    cd client
    npm install
 
-   # Install server dependencies (in new terminal or separate folder)
+   # Install server dependencies
    cd ../server
+   npm install
+
+   # Install mobile app dependencies (optional)
+   cd ../mobile
    npm install
    ```
 
@@ -64,7 +75,13 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
    npm run dev
    ```
 
-3. **Open in browser**
+3. **Start the mobile app** (Terminal 3)
+   ```bash
+   cd mobile
+   npm start
+   ```
+
+4. **Open in browser**
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:3001/api/health
 
@@ -91,6 +108,9 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
 - `POST /api/auth/register/influencer` - Register influencer
 - `POST /api/auth/register/brand` - Register brand
 - `POST /api/auth/login` - Login
+- `POST /api/auth/social/google` - Google OAuth
+- `POST /api/auth/social/facebook` - Facebook OAuth
+- `POST /api/auth/social/apple` - Apple OAuth
 
 ### Campaigns
 - `GET /api/campaigns/feed` - Get available campaigns
@@ -106,15 +126,34 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
 - `POST /api/brand/campaigns` - Create campaign
 - `GET /api/brand/campaigns` - List campaigns
 
+### Payments
+- `GET /api/payments/history` - Payment history
+- `POST /api/payments/stripe/connect` - Connect Stripe account
+- `POST /api/payments/stripe/payout` - Create Stripe payout
+- `POST /api/payments/paypal/connect` - Connect PayPal
+- `POST /api/payments/paypal/payout` - Create PayPal payout
+
+### Analytics
+- `GET /api/analytics/campaign/:campaignId` - Campaign analytics
+- `GET /api/analytics/brand` - Brand analytics overview
+
 ### Coupons
 - `POST /api/coupons/webhook/usage` - Track coupon usage (for vendors)
 
 ## Environment Variables
 
-Create a `.env` file in the server folder:
+Create `.env` files:
+
+**Server (.env)**:
 ```env
 PORT=3001
 JWT_SECRET=your-secret-key
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+PAYPAL_CLIENT_ID=your-paypal-id
+PAYPAL_CLIENT_SECRET=your-paypal-secret
+PAYPAL_MODE=sandbox
+FRONTEND_URL=http://localhost:5173
 ```
 
 ## Project Structure
@@ -128,13 +167,33 @@ swipe1/
 │   │   ├── stores/        # Zustand state management
 │   │   └── utils/         # API client
 │   └── package.json
+├── mobile/                 # React Native/Expo mobile app
+│   ├── app/               # Expo Router screens
+│   │   ├── (tabs)/        # Tab navigation
+│   │   └── auth/         # Auth screens
+│   ├── src/
+│   │   ├── components/
+│   │   ├── stores/       # Zustand stores
+│   │   ├── services/     # Notifications, etc.
+│   │   └── utils/        # API, colors
+│   └── package.json
 ├── server/                # Node.js backend
 │   ├── src/
-│   │   ├── routes/        # API endpoints
-│   │   ├── middleware/    # Auth middleware
-│   │   └── index.js       # Server entry
+│   │   ├── routes/       # API endpoints
+│   │   │   ├── auth.js
+│   │   │   ├── social.js  # OAuth (Google, FB, Apple)
+│   │   │   ├── campaigns.js
+│   │   │   ├── influencer.js
+│   │   │   ├── brand.js
+│   │   │   ├── coupons.js
+│   │   │   ├── payments.js
+│   │   │   ├── stripe.js   # Stripe Connect
+│   │   │   ├── paypal.js  # PayPal Payouts
+│   │   │   └── analytics.js
+│   │   ├── middleware/   # Auth middleware
+│   │   └── index.js      # Server entry
 │   ├── prisma/
-│   │   └── schema.prisma  # Database schema
+│   │   └── schema.prisma # Database schema
 │   └── package.json
 ├── SPEC.md                # Detailed specification
 └── .gitignore
