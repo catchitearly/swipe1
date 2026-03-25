@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #FF4B6E;
+  --secondary: #1A1A2E;
+  --accent: #FFD93D;
+  --success: #6BCB77;
+  --error: #FF6B6B;
+  --background: #0F0F1A;
+  --card: #1E1E32;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--background);
+  color: white;
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(30, 30, 50, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+  @apply bg-primary text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+}
+
+.btn-primary:hover {
+  @apply scale-[1.02] shadow-lg;
+  box-shadow: 0 8px 32px rgba(255, 75, 110, 0.3);
+}
+
+.btn-secondary {
+  @apply bg-card text-white px-6 py-3 rounded-lg font-medium border border-white/10 transition-all duration-300;
+}
+
+.btn-secondary:hover {
+  @apply border-primary/50;
+}
+
+.card {
+  @apply bg-card rounded-xl p-6 border border-white/5;
+}
+
+.input {
+  @apply w-full bg-background border border-white/10 rounded-lg px-4 py-3 text-white placeholder-text-muted focus:border-primary focus:outline-none transition-colors;
+}
+
+.swipe-card {
+  width: 320px;
+  height: 480px;
+  background: linear-gradient(145deg, #1E1E32 0%, #2A2A42 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.swipe-card-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 75, 110, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 75, 110, 0.5); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.verified-badge {
+  @apply bg-success/20 text-success px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1;
+}
+
+.pending-badge {
+  @apply bg-accent/20 text-accent px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FF4B6E 0%, #FFD93D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
