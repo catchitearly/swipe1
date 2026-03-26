@@ -15,7 +15,13 @@ import analyticsRoutes from './routes/analytics.js';
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(cors());
+const corsOptions = {
+  origin: '*', // Allow all origins for now
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Make prisma available to routes
