@@ -78,12 +78,31 @@ A marketplace connecting brands with verified influencers through a Tinder-like 
 3. **Start the mobile app** (Terminal 3)
    ```bash
    cd mobile
-   npm start
+   npm install
+   npx expo start
    ```
 
 4. **Open in browser**
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:3001/api/health
+
+## Building Mobile Apps
+
+### iOS
+```bash
+cd mobile
+npm install
+npx expo run:ios
+```
+
+### Android
+```bash
+cd mobile
+npm install
+npx expo run:android
+```
+
+For detailed build instructions, see [mobile/README.md](mobile/README.md)
 
 ## How It Works
 
