@@ -1,0 +1,327 @@
+.swipe-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.swipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.app-subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.theme-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Card Stack */
+.card-stack {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 20px 0;
+}
+
+/* Swipe Card */
+.swipe-card {
+  position: absolute;
+  width: 340px;
+  height: 520px;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: grab;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.swipe-card:active {
+  cursor: grabbing;
+}
+
+.swipe-card-image {
+  position: relative;
+  width: 100%;
+  height: 65%;
+}
+
+.swipe-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swipe-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+}
+
+/* Brand Badge */
+.swipe-card-brand {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand-category {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+}
+
+/* Commission Badge */
+.commission-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  padding: 12px 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.commission-value {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.commission-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+/* Card Content */
+.swipe-card-content {
+  background: var(--card);
+  padding: 20px;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.campaign-description {
+  font-size: 13px;
+  opacity: 0.7;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.swipe-card-stats {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  font-size: 20px;
+}
+
+.stat-text {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+/* Swipe Indicators */
+.swipe-indicators {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.swipe-card:hover .swipe-indicators {
+  opacity: 1;
+}
+
+.indicator {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  border: 4px solid;
+}
+
+.indicator.nope {
+  color: #F44336;
+  border-color: #F44336;
+  transform: rotate(-15deg);
+}
+
+.indicator.like {
+  color: #4CAF50;
+  border-color: #4CAF50;
+  transform: rotate(15deg);
+}
+
+/* Swipe Buttons */
+.swipe-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px 0;
+}
+
+.swipe-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.swipe-btn:hover {
+  transform: scale(1.1);
+}
+
+.swipe-btn:active {
+  transform: scale(0.95);
+}
+
+.nope-btn {
+  background: white;
+  color: #F44336;
+}
+
+.super-btn {
+  background: #FFD740;
+  color: #FF9800;
+}
+
+.like-btn {
+  background: linear-gradient(135deg, #E91E63, #FF4081);
+  color: white;
+}
+
+.btn-icon {
+  font-size: 24px;
+}
+
+/* Match Banner */
+.match-banner {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(76, 175, 80, 0.4);
+  z-index: 100;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .swipe-card {
+    width: 300px;
+    height: 480px;
+  }
+
+  .swipe-buttons {
+    gap: 16px;
+  }
+
+  .swipe-btn {
+    width: 56px;
+    height: 56px;
+  }
+}

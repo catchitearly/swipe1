@@ -1,24 +1,76 @@
 import { Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Landing() {
+  const { theme, isDark, toggleTheme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ 
+      background: theme.backgroundGradient, 
+      minHeight: '100vh',
+      color: theme.text
+    }}>
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+      <header style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        background: theme.card + '80',
+        backdropFilter: 'blur(10px)',
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '16px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: theme.primary,
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
+            }}>
+              IM
             </div>
-            <span className="text-xl font-bold">InfluencerMatch</span>
+            <span style={{ fontSize: '20px', fontWeight: 'bold' }}>InfluencerMatch</span>
           </div>
-          <div className="flex items-center gap-4">
-            <Link to="/login" className="text-text-secondary hover:text-white transition-colors">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button 
+              onClick={toggleTheme}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+              }}
+            >
+              {isDark ? '☀️' : '🌙'}
+            </button>
+            <Link to="/login" style={{ 
+              color: theme.textSecondary, 
+              textDecoration: 'none',
+              fontWeight: '500',
+            }}>
               Login
             </Link>
-            <Link to="/register" className="btn-primary">
+            <Link to="/register" style={{
+              background: theme.primaryGradient,
+              color: 'white',
+              padding: '10px 20px',
+              borderRadius: '10px',
+              textDecoration: 'none',
+              fontWeight: '600',
+            }}>
               Get Started
             </Link>
           </div>
@@ -26,94 +78,129 @@ export default function Landing() {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Connect Brands with <span className="gradient-text">Verified Influencers</span>
+      <section style={{ padding: '128px 24px 80px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}>
+          <h1 style={{ 
+            fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
+            fontWeight: '700',
+            marginBottom: '24px',
+            lineHeight: 1.1,
+          }}>
+            Connect Brands with <span style={{ color: theme.primary }}>Verified Influencers</span>
           </h1>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto mb-10">
+          <p style={{ 
+            fontSize: '20px', 
+            color: theme.textSecondary,
+            maxWidth: '600px',
+            margin: '0 auto 40px',
+            lineHeight: 1.6,
+          }}>
             A Tinder-like marketplace where influencers swipe to connect with brands and promote campaigns using unique coupon codes. Get paid for every purchase!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/register" className="btn-primary text-lg px-8 py-4">
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/register" style={{
+              background: theme.primaryGradient,
+              color: 'white',
+              padding: '16px 32px',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '18px',
+            }}>
               Join as Influencer
             </Link>
-            <Link to="/register" className="btn-secondary text-lg px-8 py-4">
+            <Link to="/register" style={{
+              background: theme.card,
+              color: theme.text,
+              padding: '16px 32px',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '18px',
+              border: `1px solid ${theme.border}`,
+            }}>
               Partner as Brand
             </Link>
           </div>
+          
+          {/* Demo Link */}
+          <div style={{ marginTop: '40px' }}>
+            <Link to="/discover" style={{
+              color: theme.primary,
+              textDecoration: 'underline',
+              fontSize: '16px',
+            }}>
+              Try the swipe experience →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Preview Card */}
+      <section style={{ padding: '40px 24px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{
+          width: '340px',
+          height: '520px',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          boxShadow: theme.cardShadow,
+          background: theme.card,
+        }}>
+          <img 
+            src="https://images.unsplash.com/photo-1469334031218-e382a5b83147?w=400&h=500&fit=crop"
+            alt="Preview"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6 bg-card/50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="card text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+      <section style={{ padding: '80px 24px', background: theme.card + '50' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '30px', fontWeight: 'bold', textAlign: 'center', marginBottom: '48px' }}>
+            How It Works
+          </h2>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '32px',
+          }}>
+            {[
+              { icon: '✓', title: 'Get Verified', desc: 'Connect your social accounts and verify your followers are real. Minimum 300 followers required.' },
+              { icon: '↔️', title: 'Swipe & Connect', desc: 'Browse campaigns and swipe right to connect. Each right swipe assigns you a unique coupon code.' },
+              { icon: '💰', title: 'Earn Commission', desc: 'Promote via reels, posts, or WhatsApp. Earn 70% commission on every purchase made with your code.' },
+            ].map((feature, i) => (
+              <div key={i} style={{
+                background: theme.card,
+                padding: '32px',
+                borderRadius: '16px',
+                textAlign: 'center',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+              }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  background: theme.primary + '20',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '28px',
+                }}>
+                  {feature.icon}
+                </div>
+                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>{feature.title}</h3>
+                <p style={{ color: theme.textSecondary, lineHeight: 1.6 }}>{feature.desc}</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Get Verified</h3>
-              <p className="text-text-secondary">
-                Connect your social accounts and verify your followers are real and organic. Minimum 300 followers required.
-              </p>
-            </div>
-            <div className="card text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Swipe & Connect</h3>
-              <p className="text-text-secondary">
-                Browse campaigns and swipe right to connect. Each right swipe assigns you a unique coupon code to share.
-              </p>
-            </div>
-            <div className="card text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Earn Commission</h3>
-              <p className="text-text-secondary">
-                Promote via reels, posts, or WhatsApp. Earn 70% commission on every purchase made with your coupon code.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">10K+</div>
-              <div className="text-text-secondary">Verified Influencers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">500+</div>
-              <div className="text-text-secondary">Brand Partners</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">1M+</div>
-              <div className="text-text-secondary">Conversions</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">$5M+</div>
-              <div className="text-text-secondary">Paid to Influencers</div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto text-center text-text-secondary">
+      <footer style={{ padding: '48px 24px', borderTop: `1px solid ${theme.border}` }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center', color: theme.textSecondary }}>
           <p>© 2024 InfluencerMatch. All rights reserved.</p>
         </div>
       </footer>
